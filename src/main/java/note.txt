@@ -1,0 +1,15 @@
+# 09-04-2026
+total = 20
+pageSize = 5
+pageNumber = 3
+pages = ( 20 + 5 - 1) / 5 = 4
+skip = (pageNumber - 1 ) * pageSize
+
+
+https://dummyjson.com/products?skip=30&limit=10
+
+skip = 0
+limit = 30
+
+OjectMapper
+Serialization, Deserialization
