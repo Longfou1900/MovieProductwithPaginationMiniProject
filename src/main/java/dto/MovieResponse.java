@@ -1,15 +1,17 @@
 package dto;
 
+import model.Movie;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.List;
 
-@Setter
 @Getter
-public class MovieResponse{
-    Integer page;
-    List<Movie> results;
-    Integer total_pages;
-    Integer total_results;
+@Setter
+public class MovieResponse {
+    private Integer page;
+    private List<Movie> results;
+    private Integer total_pages;
+    private Integer total_results;
 }
+ 

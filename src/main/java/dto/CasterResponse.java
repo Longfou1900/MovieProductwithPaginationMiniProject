@@ -1,7 +1,10 @@
+//src/main/java/dto/CasterResponse.java
+
 package dto;
 
 import lombok.Getter;
 import lombok.Setter;
+import model.Cast;
 
 import java.util.List;
 

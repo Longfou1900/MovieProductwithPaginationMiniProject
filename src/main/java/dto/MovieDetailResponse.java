@@ -1,13 +1,11 @@
+//src/main/java/dto/MovieDetailResponse.java
 package dto;
-
-import co.istad.y2.model.Genre;
-import co.istad.y2.model.ProductionCompany;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import model.ProductionCompany;
 
 import java.util.List;
-
 
 @Getter
 @ToString

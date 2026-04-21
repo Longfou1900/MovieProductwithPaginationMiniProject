@@ -1,7 +1,6 @@
+//src/main/java/model/Product.java
 package model;
-
 import lombok.*;
-
 @Getter
 @Setter
 @AllArgsConstructor

@@ -1,8 +1,8 @@
+//src/main/java/dto/TrailerResponse.java
 package dto;
-
-import co.istad.y2.model.Trailer;
 import lombok.Getter;
 import lombok.Setter;
+import model.Trailer;
 
 import java.util.List;
 
