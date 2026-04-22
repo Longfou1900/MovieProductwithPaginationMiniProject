@@ -93,7 +93,7 @@ public class TableRender {
 
         Table table = new Table(
                 2,
-                BorderStyle.CLASSIC,
+                BorderStyle.UNICODE_BOX,
                 ShownBorders.ALL
         );
 
