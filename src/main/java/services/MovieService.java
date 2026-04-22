@@ -14,5 +14,5 @@ public interface MovieService {
 
     MovieResponse searchMovies(String currentQuery, int pageNumber)throws Exception;
 
-    MovieDetailResponse getMovieDetails(int movieId);
+    MovieDetailResponse getMovieDetails(int movieId) throws Exception;
 }

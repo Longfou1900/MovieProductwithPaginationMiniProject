@@ -18,15 +18,14 @@ import static java.net.http.HttpRequest.newBuilder;
 public class MovieServiceImpl implements MovieService {
 
     private static final String TMDB_API_BASE_URL = "https://api.themoviedb.org/3";
-//    private static final String BEARER_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4YzQzNGY2YzcwMWFlODZkMzY1OWM5OGQ5MzI1ZjM5YSIsIm5iZiI6MTczMzMwOTIwMi44MTY0MDA1LCJzdWIiOiI2NzMzMGMzYTAwZDJkOGY2OWY3MzFmYTEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.wzHSvqZT384z00cpE2wM6_ilvg049VRwZKW4bjKb_VE";
     private static final String API_KEY = "32fbe8133de3bbd17efae14b81941868";
-
 
     private static final HttpClient client =
             HttpClient.newBuilder().connectTimeout(
-                    Duration.ofSeconds(10)).build(); //error (Duration.ofSeconds(10))
+                    Duration.ofSeconds(10)).build();
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
+
     @Override
     public List<Movie> getAll() {
         try {
@@ -46,7 +45,8 @@ public class MovieServiceImpl implements MovieService {
             int pageSize = limit;
             int page = (skip / pageSize) + 1;
 
-            String url = TMDB_API_BASE_URL + "/movie/popular?page=" + page;
+            // ✅ ADD API_KEY HERE
+            String url = TMDB_API_BASE_URL + "/movie/popular?api_key=" + API_KEY + "&page=" + page;
             String responseBody = makeRequest(url);
             MovieResponse response = objectMapper.readValue(responseBody, MovieResponse.class);
             return response;
@@ -56,12 +56,43 @@ public class MovieServiceImpl implements MovieService {
         }
     }
 
+    @Override
+    public MovieResponse searchMovies(String query, int page) throws Exception {
+        try {
+            String encodedQuery = encodeUrl(query);
+            // ✅ ADD API_KEY HERE - MOST IMPORTANT FIX!
+            String url = TMDB_API_BASE_URL + "/search/movie?api_key=" + API_KEY + "&query=" + encodedQuery + "&page=" + page;
+
+            String responseBody = makeRequest(url);
+            MovieResponse response = objectMapper.readValue(responseBody, MovieResponse.class);
+
+            return response;
+        } catch (Exception e) {
+            System.out.println("[!] Error: " + e.getMessage());
+            throw e;
+        }
+    }
+
+    @Override
+    public MovieDetailResponse getMovieDetails(int movieId) throws Exception {
+        try {
+            // ✅ ADD API_KEY HERE
+            String url = TMDB_API_BASE_URL + "/movie/" + movieId + "?api_key=" + API_KEY;
+            String responseBody = makeRequest(url);
+            MovieDetailResponse response = objectMapper.readValue(responseBody, MovieDetailResponse.class);
+            return response;
+        } catch (Exception e) {
+            System.out.println("[!] Error: " + e.getMessage());
+            throw e;
+        }
+    }
+
     private static String makeRequest(String urlString) throws Exception {
         System.out.println("[DEBUG] Calling URL: " + urlString);
+
         HttpRequest request = newBuilder()
                 .GET()
                 .uri(URI.create(urlString))
-//                .header("Authorization", "Bearer " + BEARER_TOKEN)
                 .header("Accept", "application/json")
                 .timeout(Duration.ofSeconds(10))
                 .build();
@@ -81,26 +112,5 @@ public class MovieServiceImpl implements MovieService {
                 .replace("&", "%26")
                 .replace("?", "%3F")
                 .replace("#", "%23");
-    }
-
-    @Override
-    public MovieResponse searchMovies(String query, int page) {
-        try {
-            String encodedQuery = encodeUrl(query);
-            String url = TMDB_API_BASE_URL + "/search/movie?query=" + encodedQuery + "&page=" + page;
-
-            String responseBody = makeRequest(url);
-            MovieResponse response = objectMapper.readValue(responseBody, MovieResponse.class);
-
-            return response;
-        } catch (Exception e) {
-            System.out.println("[!] Error: " + e.getMessage());
-            return null;
-        }
-    }
-
-    @Override
-    public MovieDetailResponse getMovieDetails(int movieId) {
-        return null;
     }
 }

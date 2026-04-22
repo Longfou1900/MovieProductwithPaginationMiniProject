@@ -10,17 +10,54 @@ import java.util.List;
 
 public class TableRender {
 
-    public static void displayMovieTable(List<Movie> movies,
-                                         int skip, int limit){
+    // ✅ Handle MovieResponse (from API)
+    public static void displayMovieTable(MovieResponse response) {
+        if (response == null || response.getResults() == null || response.getResults().isEmpty()) {
+            System.out.println("[!] No movies found.");
+            return;
+        }
 
-        // change 5 -> 8 columns
         Table table = new Table(
                 8,
                 BorderStyle.CLASSIC,
                 ShownBorders.ALL
         );
 
-        // add new columns
+        String[] columns = {
+                "ID", "Title", "Release Date",
+                "Rating", "Popularity",
+                "Category", "Price", "Stock"
+        };
+
+        for (String column : columns){
+            table.addCell(column);
+        }
+
+        List<Movie> movies = response.getResults();
+
+        for (Movie movie : movies){
+            table.addCell(movie.getId().toString());
+            table.addCell(movie.getTitle() != null ? movie.getTitle() : "N/A");
+            table.addCell(movie.getRelease_date() != null ? movie.getRelease_date() : "N/A");
+            table.addCell(movie.getVote_average() != null ? movie.getVote_average().toString() : "N/A");
+            table.addCell(movie.getPopularity() != null ? movie.getPopularity().toString() : "N/A");
+            table.addCell(movie.getCategory() != null ? movie.getCategory() : "Movie");
+            table.addCell(movie.getPrice() != null ? "$" + movie.getPrice().toString() : "$5.99");
+            table.addCell(movie.getStock() != null ? movie.getStock().toString() : "10");
+        }
+
+        System.out.println(table.render());
+    }
+
+    // ✅ Handle List<Movie> (from local data)
+    public static void displayMovieTable(List<Movie> movies, int skip, int limit){
+
+        Table table = new Table(
+                8,
+                BorderStyle.CLASSIC,
+                ShownBorders.ALL
+        );
+
         String[] columns = {
                 "ID", "Title", "Release Date",
                 "Rating", "Popularity",
@@ -40,9 +77,9 @@ public class TableRender {
             table.addCell(movie.getRelease_date() != null ? movie.getRelease_date() : "N/A");
             table.addCell(movie.getVote_average() != null ? movie.getVote_average().toString() : "N/A");
             table.addCell(movie.getPopularity() != null ? movie.getPopularity().toString() : "N/A");
-            table.addCell(movie.getCategory() != null ? movie.getCategory() : "N/A");
-            table.addCell(movie.getPrice() != null ? movie.getPrice().toString() : "N/A");
-            table.addCell(movie.getStock() != null ? movie.getStock().toString() : "N/A");
+            table.addCell(movie.getCategory() != null ? movie.getCategory() : "Movie");
+            table.addCell(movie.getPrice() != null ? "$" + movie.getPrice().toString() : "$5.99");
+            table.addCell(movie.getStock() != null ? movie.getStock().toString() : "10");
         }
 
         System.out.println(table.render());
@@ -54,27 +91,42 @@ public class TableRender {
                                           String origin,
                                           String category, String price, String stock) {
 
-        // increase rows automatically
         Table table = new Table(
                 2,
                 BorderStyle.CLASSIC,
                 ShownBorders.ALL
         );
 
-        table.addCell("Title"); table.addCell(title);
-        table.addCell("Release Date"); table.addCell(releaseDate);
-        table.addCell("Rating"); table.addCell(rating);
-        table.addCell("Runtime"); table.addCell(runtime);
-        table.addCell("Budget"); table.addCell(budget);
-        table.addCell("Genres"); table.addCell(genres);
-        table.addCell("Origin"); table.addCell(origin);
-        table.addCell("Category"); table.addCell(category);
-        table.addCell("Price"); table.addCell(price);
-        table.addCell("Stock"); table.addCell(stock);
+        table.addCell("Title");
+        table.addCell(title);
+
+        table.addCell("Release Date");
+        table.addCell(releaseDate);
+
+        table.addCell("Rating");
+        table.addCell(rating);
+
+        table.addCell("Runtime");
+        table.addCell(runtime);
+
+        table.addCell("Budget");
+        table.addCell(budget);
+
+        table.addCell("Genres");
+        table.addCell(genres);
+
+        table.addCell("Origin");
+        table.addCell(origin);
+
+        table.addCell("Category");
+        table.addCell(category);
+
+        table.addCell("Price");
+        table.addCell(price);
+
+        table.addCell("Stock");
+        table.addCell(stock);
 
         System.out.println(table.render());
-    }
-
-    public static void displayMovieTable(MovieResponse currentMovieList) {
     }
 }
