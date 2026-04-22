@@ -7,4 +7,11 @@ Connected to the target VM, address: '127.0.0.1:53486', transport: 'socket'
    ██║ ╚═╝ ██║╚██████╔╝ ╚████╔╝ ███████╗    ███████║███████╗██║  ██║██║  ██║╚██████╗██║  ██║
    ╚═╝     ╚═╝ ╚═════╝   ╚═══╝  ╚══════╝    ╚══════╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝
 
-[-] Enter movie title:
+[-] Enter movie title: batman
+[+] Searching for: batman
+[DEBUG] Calling URL: https://api.themoviedb.org/3/search/movie?query=batman&page=1
+[!] Error: API Error: Status Code 401 - {"status_code":7,"status_message":"Invalid API key: You must be granted a valid key.","success":false}
+
+[!] No movies found.
+
+Process finished with exit code 0

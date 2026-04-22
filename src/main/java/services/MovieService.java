@@ -12,7 +12,7 @@ public interface MovieService {
 
     MovieResponse getMovies(int skip, int limit);
 
-    MovieResponse searchMovies(String currentQuery, int pageNumber);
+    MovieResponse searchMovies(String currentQuery, int pageNumber)throws Exception;
 
     MovieDetailResponse getMovieDetails(int movieId);
 }

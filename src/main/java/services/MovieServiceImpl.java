@@ -18,18 +18,19 @@ import static java.net.http.HttpRequest.newBuilder;
 public class MovieServiceImpl implements MovieService {
 
     private static final String TMDB_API_BASE_URL = "https://api.themoviedb.org/3";
-    private static final String BEARER_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4YzQzNGY2YzcwMWFlODZkMzY1OWM5OGQ5MzI1ZjM5YSIsIm5iZiI6MTczMzMwOTIwMi44MTY0MDA1LCJzdWIiOiI2NzMzMGMzYTAwZDJkOGY2OWY3MzFmYTEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.wzHSvqZT384z00cpE2wM6_ilvg049VRwZKW4bjKb_VE";
+//    private static final String BEARER_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4YzQzNGY2YzcwMWFlODZkMzY1OWM5OGQ5MzI1ZjM5YSIsIm5iZiI6MTczMzMwOTIwMi44MTY0MDA1LCJzdWIiOiI2NzMzMGMzYTAwZDJkOGY2OWY3MzFmYTEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.wzHSvqZT384z00cpE2wM6_ilvg049VRwZKW4bjKb_VE";
+    private static final String API_KEY = "32fbe8133de3bbd17efae14b81941868";
+
 
     private static final HttpClient client =
             HttpClient.newBuilder().connectTimeout(
                     Duration.ofSeconds(10)).build(); //error (Duration.ofSeconds(10))
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
-
     @Override
     public List<Movie> getAll() {
         try {
-            String url = TMDB_API_BASE_URL + "/movie/popular?page=1";
+            String url = TMDB_API_BASE_URL + "/movie/popular?api_key=" + API_KEY + "&page=1";
             String responseBody = makeRequest(url);
             MovieResponse response = objectMapper.readValue(responseBody, MovieResponse.class);
             return response.getResults() != null ? response.getResults() : new ArrayList<>();
@@ -56,10 +57,11 @@ public class MovieServiceImpl implements MovieService {
     }
 
     private static String makeRequest(String urlString) throws Exception {
+        System.out.println("[DEBUG] Calling URL: " + urlString);
         HttpRequest request = newBuilder()
                 .GET()
                 .uri(URI.create(urlString))
-                .header("Authorization", "Bearer " + BEARER_TOKEN)
+//                .header("Authorization", "Bearer " + BEARER_TOKEN)
                 .header("Accept", "application/json")
                 .timeout(Duration.ofSeconds(10))
                 .build();
