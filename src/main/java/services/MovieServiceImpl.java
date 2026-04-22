@@ -45,7 +45,7 @@ public class MovieServiceImpl implements MovieService {
             int pageSize = limit;
             int page = (skip / pageSize) + 1;
 
-            // ✅ ADD API_KEY HERE
+            //  ADD API_KEY HERE
             String url = TMDB_API_BASE_URL + "/movie/popular?api_key=" + API_KEY + "&page=" + page;
             String responseBody = makeRequest(url);
             MovieResponse response = objectMapper.readValue(responseBody, MovieResponse.class);
@@ -60,7 +60,7 @@ public class MovieServiceImpl implements MovieService {
     public MovieResponse searchMovies(String query, int page) throws Exception {
         try {
             String encodedQuery = encodeUrl(query);
-            // ✅ ADD API_KEY HERE - MOST IMPORTANT FIX!
+            //  ADD API_KEY HERE - MOST IMPORTANT FIX!
             String url = TMDB_API_BASE_URL + "/search/movie?api_key=" + API_KEY + "&query=" + encodedQuery + "&page=" + page;
 
             String responseBody = makeRequest(url);
@@ -76,7 +76,7 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public MovieDetailResponse getMovieDetails(int movieId) throws Exception {
         try {
-            // ✅ ADD API_KEY HERE
+            //  ADD API_KEY HERE
             String url = TMDB_API_BASE_URL + "/movie/" + movieId + "?api_key=" + API_KEY;
             String responseBody = makeRequest(url);
             MovieDetailResponse response = objectMapper.readValue(responseBody, MovieDetailResponse.class);

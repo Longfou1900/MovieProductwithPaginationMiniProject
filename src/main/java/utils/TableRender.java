@@ -10,7 +10,7 @@ import java.util.List;
 
 public class TableRender {
 
-    // ✅ Handle MovieResponse (from API)
+    // Handle MovieResponse (from API)
     public static void displayMovieTable(MovieResponse response) {
         if (response == null || response.getResults() == null || response.getResults().isEmpty()) {
             System.out.println("[!] No movies found.");
@@ -19,7 +19,7 @@ public class TableRender {
 
         Table table = new Table(
                 8,
-                BorderStyle.CLASSIC,
+                BorderStyle.UNICODE_BOX_WIDE,
                 ShownBorders.ALL
         );
 
@@ -49,12 +49,12 @@ public class TableRender {
         System.out.println(table.render());
     }
 
-    // ✅ Handle List<Movie> (from local data)
+    // Handle List<Movie> (from local data)
     public static void displayMovieTable(List<Movie> movies, int skip, int limit){
 
         Table table = new Table(
                 8,
-                BorderStyle.CLASSIC,
+                BorderStyle.UNICODE_BOX_DOUBLE_BORDER,
                 ShownBorders.ALL
         );
 
@@ -93,7 +93,7 @@ public class TableRender {
 
         Table table = new Table(
                 2,
-                BorderStyle.UNICODE_BOX,
+                BorderStyle.UNICODE_BOX_DOUBLE_BORDER,
                 ShownBorders.ALL
         );
 

@@ -11,7 +11,6 @@ import java.time.Duration;
 public class HttpClientUtil {
 
     private static final String TMDB_API_BASE_URL = "https://api.themoviedb.org/3";
-//    private static final String BEARER_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMmZiZTgxMzNkZTNiYmQxN2VmYWUxNGI4MTk0MTg2OCIsIm5iZiI6MTc3Njc3NTk5MS40MTYsInN1YiI6IjY5ZTc3MzM3OGQ4YThhYTMzNTE5NjA4NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.tLLPYpuKv06h79OZRgNjG2ehMeH8bQsZWtC704IGxOY";
     private static final String API_KEY = "32fbe8133de3bbd17efae14b81941868";
 
     private static final HttpClient client = HttpClient.newBuilder()
