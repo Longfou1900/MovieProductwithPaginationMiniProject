@@ -11,24 +11,30 @@ import java.time.Duration;
 public class HttpClientUtil {
 
     private static final String TMDB_API_BASE_URL = "https://api.themoviedb.org/3";
-    private static final String BEARER_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4YzQzNGY2YzcwMWFlODZkMzY1OWM1OGQ5MzI1ZjM5YSIsIm5iZiI6MTczMzMwOTIwMi44MTY0MDA1LCJzdWIiOiI2NzMzMGMzYTAwZDJkOGY2OWY3MzFmYTEiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.wzHSvqZT384z00cpE2wM6_ilvg049VRwZKW4bjKb_VE";
+//    private static final String BEARER_TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzMmZiZTgxMzNkZTNiYmQxN2VmYWUxNGI4MTk0MTg2OCIsIm5iZiI6MTc3Njc3NTk5MS40MTYsInN1YiI6IjY5ZTc3MzM3OGQ4YThhYTMzNTE5NjA4NCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.tLLPYpuKv06h79OZRgNjG2ehMeH8bQsZWtC704IGxOY";
 
     private static final HttpClient client = HttpClient.newBuilder()
             .connectTimeout(Duration.ofSeconds(10))
             .build();
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
+    private static final String API_KEY = "32fbe8133de3bbd17efae14b81941868";
 
     public static String get(String endpoint, String queryParams) throws Exception {
         String fullUrl = TMDB_API_BASE_URL + endpoint;
+        fullUrl += "?api_key=" + API_KEY;
+
         if (queryParams != null && !queryParams.isEmpty()) {
             fullUrl += "?" + queryParams;
         }
 
+        // Optional: Print URL console to verify correct
+        System.out.println("[DEBUG] Calling URL: " + fullUrl);
+
         HttpRequest request = HttpRequest.newBuilder()
                 .GET()
                 .uri(URI.create(fullUrl))
-                .header("Authorization", "Bearer " + BEARER_TOKEN)
+//                .header("Authorization", "Bearer " + BEARER_TOKEN)
                 .header("Accept", "application/json")
                 .timeout(Duration.ofSeconds(10))
                 .build();
